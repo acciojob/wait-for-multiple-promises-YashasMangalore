@@ -1,6 +1,9 @@
 // Function to display loading row
 function displayLoading() {
   const tbody = document.getElementById('output');
+  // Remove any existing rows before showing loading
+  tbody.innerHTML = '';
+  
   const loadingRow = document.createElement('tr');
   loadingRow.id = 'loading';
   loadingRow.innerHTML = `<td colspan="2">Loading...</td>`;
@@ -17,10 +20,8 @@ function removeLoading() {
 
 // Function to create and handle promises
 function runPromises() {
-  const tbody = document.getElementById('output');
-  displayLoading(); // Display loading before promises start
-
-  // Create 3 promises that resolve after a random time between 1 and 3 seconds
+  displayLoading(); // Display loading immediately
+  
   const promises = [
     new Promise((resolve) => {
       const time = Math.random() * 2 + 1; // Random time between 1 and 3 seconds
@@ -38,8 +39,10 @@ function runPromises() {
 
   // Use Promise.all to wait for all promises to resolve
   Promise.all(promises).then((times) => {
-    removeLoading(); // Remove the loading text once all promises are resolved
+    removeLoading(); // Remove the loading text after promises resolve
 
+    const tbody = document.getElementById('output');
+    
     // Append rows with the resolved promise times
     times.forEach((time, index) => {
       const row = document.createElement('tr');
