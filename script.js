@@ -1,16 +1,17 @@
-// Function to display loading row
 function displayLoading() {
+  console.log("Displaying loading...");
   const tbody = document.getElementById('output');
-  // Remove any existing rows before showing loading
+  
+  // Clear any existing rows
   tbody.innerHTML = '';
   
+  // Add loading row
   const loadingRow = document.createElement('tr');
   loadingRow.id = 'loading';
   loadingRow.innerHTML = `<td colspan="2">Loading...</td>`;
   tbody.appendChild(loadingRow);
 }
 
-// Function to remove loading row
 function removeLoading() {
   const loadingRow = document.getElementById('loading');
   if (loadingRow) {
@@ -18,7 +19,6 @@ function removeLoading() {
   }
 }
 
-// Function to create and handle promises
 function runPromises() {
   displayLoading(); // Display loading immediately
   
@@ -37,7 +37,6 @@ function runPromises() {
     }),
   ];
 
-  // Use Promise.all to wait for all promises to resolve
   Promise.all(promises).then((times) => {
     removeLoading(); // Remove the loading text after promises resolve
 
@@ -58,5 +57,4 @@ function runPromises() {
   });
 }
 
-// Attach event listener to start the promises when the button is clicked
 document.getElementById('start-button').addEventListener('click', runPromises);
