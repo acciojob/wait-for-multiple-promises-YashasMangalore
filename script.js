@@ -1,3 +1,4 @@
+// Function to display loading row
 function displayLoading() {
   const tbody = document.getElementById('output');
   const loadingRow = document.createElement('tr');
@@ -6,6 +7,7 @@ function displayLoading() {
   tbody.appendChild(loadingRow);
 }
 
+// Function to remove loading row
 function removeLoading() {
   const loadingRow = document.getElementById('loading');
   if (loadingRow) {
@@ -13,9 +15,10 @@ function removeLoading() {
   }
 }
 
+// Function to create and handle promises
 function runPromises() {
   const tbody = document.getElementById('output');
-  displayLoading();
+  displayLoading(); // Display loading before promises start
 
   // Create 3 promises that resolve after a random time between 1 and 3 seconds
   const promises = [
@@ -35,16 +38,16 @@ function runPromises() {
 
   // Use Promise.all to wait for all promises to resolve
   Promise.all(promises).then((times) => {
-    removeLoading(); // Remove the loading text after promises resolve
+    removeLoading(); // Remove the loading text once all promises are resolved
 
-    // Append rows with the promise results
+    // Append rows with the resolved promise times
     times.forEach((time, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `<td>Promise ${index + 1}</td><td>${time}</td>`;
       tbody.appendChild(row);
     });
 
-    // Append total time row
+    // Calculate and append total time row
     const totalTime = times.reduce((acc, curr) => acc + parseFloat(curr), 0).toFixed(3);
     const totalRow = document.createElement('tr');
     totalRow.innerHTML = `<td>Total</td><td>${totalTime}</td>`;
@@ -52,6 +55,5 @@ function runPromises() {
   });
 }
 
-// Attach event listener to a button (not in the original HTML provided)
-// Example of button initialization
+// Attach event listener to start the promises when the button is clicked
 document.getElementById('start-button').addEventListener('click', runPromises);
